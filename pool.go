@@ -1,0 +1,45 @@
+package locks
+
+import (
+	"errors"
+	"sync"
+)
+
+// ErrInvalidAmount is returned when the amount is less than or equal to 0.
+var ErrInvalidAmount = errors.New("amount must be greater than 0")
+
+// Pool is a pool of locks that can be used to lock based on a key.
+type Pool struct {
+	locks []*sync.Mutex
+}
+
+// NewPool creates a new pool of locks, where amount is the number of locks to create.
+// It returns an error if the amount is less than or equal to 0.
+// The ideal amount of locks is dependent on the number of threads. With a factor that depends on the amount of collision you want per lock.
+// Example:
+// 	threads := 7
+// 	// Collision of 25% per lock
+// 	amount := threads * (100 / 25) // => 7 * 4 = 28
+func NewPool(amount int) (*Pool, error) {
+	if amount <= 0 {
+		return nil, ErrInvalidAmount
+	}
+
+	locks := make([]*sync.Mutex, 0, amount)
+	for i := 0; i < amount; i++ {
+		locks = append(locks, new(sync.Mutex))
+	}
+	return &Pool{locks}, nil
+}
+
+// GetLock returns a lock from the pool based on the key.
+// The key is provided to ensure that the same lock is always returned for the same key. And can be any value.
+// Example:
+// 	lock := pool.GetLock(1)
+// 	lock = pool.GetLock(987654321)
+func (p *Pool) GetLock(key uint64) *sync.Mutex {
+	length := uint64(len(p.locks))
+	index := key % length
+
+	return p.locks[index]
+}
