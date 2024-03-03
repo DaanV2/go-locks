@@ -1,5 +1,7 @@
 # Go Locks
 
+[![CI](https://github.com/DaanV2/go-locks/actions/workflows/pipeline.yaml/badge.svg)](https://github.com/DaanV2/go-locks/actions/workflows/pipeline.yaml)
+
 A simple library that provides pools of locks for Go. It is useful when you need to lock on a resource that cannot carry its lock.
 Such as files, network connections, etc.
 
