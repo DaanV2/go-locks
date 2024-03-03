@@ -5,6 +5,12 @@
 A simple library that provides pools of locks for Go. It is useful when you need to lock on a resource that cannot carry its lock.
 Such as files, network connections, etc.
 
+## Install
+
+```bash
+go get github.com/DaanV2/go-locks.git
+```
+
 ## Usage
 ```go
 package main
