@@ -8,16 +8,16 @@ type RWPool struct {
 
 // NewRWPool creates a new pool of locks, where amount is the number of locks to create.
 // Instead of mutexes, it uses RWMutexes.
-func NewRWPool(amount int) (*RWPool, error) {
+func NewRWPool(amount int) *RWPool {
 	if amount <= 0 {
-		return nil, ErrInvalidAmount
+		amount = 10
 	}
 
 	locks := make([]*sync.RWMutex, 0, amount)
 	for i := 0; i < amount; i++ {
 		locks = append(locks, new(sync.RWMutex))
 	}
-	return &RWPool{locks}, nil
+	return &RWPool{locks}
 }
 
 // GetLock returns a lock from the pool based on the key.
@@ -30,4 +30,9 @@ func (p *RWPool) GetLock(key uint64) *sync.RWMutex {
 	index := key % length
 
 	return p.locks[index]
+}
+
+// Len returns the amount of locks in the pool.
+func (p *RWPool) Len() int {
+	return len(p.locks)
 }
