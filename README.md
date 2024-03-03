@@ -8,7 +8,7 @@ Such as files, network connections, etc.
 ## Install
 
 ```bash
-go get github.com/DaanV2/go-locks.git
+go get github.com/DaanV2/go-locks
 ```
 
 ## Usage
