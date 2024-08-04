@@ -2,6 +2,7 @@ package locks
 
 import "sync"
 
+// RWPool is a Read Write Pool of locks
 type RWPool struct {
 	locks []*sync.RWMutex
 }
