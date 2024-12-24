@@ -33,6 +33,20 @@ func (p *RWPool) GetLock(key uint64) *sync.RWMutex {
 	return p.locks[index]
 }
 
+// GetLockByString returns a key for a string
+func (p *RWPool) GetLockByString(key string) *sync.RWMutex {
+	id := KeyForString(key)
+
+	return p.GetLock(id)
+}
+
+// GetLockByBytes returns a key for a byte slice
+func (p *RWPool) GetLockByBytes(b []byte) *sync.RWMutex {
+	id := KeyForBytes(b)
+
+	return p.GetLock(id)
+}
+
 // Len returns the amount of locks in the pool.
 func (p *RWPool) Len() int {
 	return len(p.locks)

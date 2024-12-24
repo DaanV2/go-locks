@@ -40,6 +40,20 @@ func (p *Pool) GetLock(key uint64) *sync.Mutex {
 	return p.locks[index]
 }
 
+// GetLockByString returns a key for a string
+func (p *Pool) GetLockByString(key string) *sync.Mutex {
+	id := KeyForString(key)
+
+	return p.GetLock(id)
+}
+
+// GetLockByBytes returns a key for a byte slice
+func (p *Pool) GetLockByBytes(b []byte) *sync.Mutex {
+	id := KeyForBytes(b)
+
+	return p.GetLock(id)
+}
+
 // Len returns the amount of locks in the pool.
 func (p *Pool) Len() int {
 	return len(p.locks)
