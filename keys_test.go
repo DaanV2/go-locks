@@ -3,7 +3,7 @@ package locks_test
 import (
 	"testing"
 
-	"github.com/DaanV2/go-locks"
+	"github.com/daanv2/go-locks"
 	"github.com/stretchr/testify/require"
 )
 

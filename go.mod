@@ -1,4 +1,4 @@
-module github.com/DaanV2/go-locks
+module github.com/daanv2/go-locks
 
 go 1.21.4
 

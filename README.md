@@ -8,7 +8,7 @@ Such as files, network connections, etc.
 ## Install
 
 ```bash
-go get github.com/DaanV2/go-locks
+go get github.com/daanv2/go-locks
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ package main
 
 import (
     "fmt"
-    "github.com/DaanV2/go-locks"
+    "github.com/daanv2/go-locks"
 )
 
 func main() {
