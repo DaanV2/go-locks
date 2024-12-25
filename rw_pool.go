@@ -9,13 +9,13 @@ type RWPool struct {
 
 // NewRWPool creates a new pool of locks, where amount is the number of locks to create.
 // Instead of mutexes, it uses RWMutexes.
-func NewRWPool(amount int) *RWPool {
-	if amount <= 0 {
-		amount = 10
-	}
+func NewRWPool(opts ...PoolOption) *RWPool {
+	opt := DefaultOptions()
+	opt.Modify(opts...)
+	opt.Sanitize()
 
-	locks := make([]*sync.RWMutex, 0, amount)
-	for i := 0; i < amount; i++ {
+	locks := make([]*sync.RWMutex, 0, opt.Size)
+	for range opt.Size {
 		locks = append(locks, new(sync.RWMutex))
 	}
 	return &RWPool{locks}

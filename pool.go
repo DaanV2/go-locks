@@ -13,16 +13,17 @@ type Pool struct {
 // It returns an error if the amount is less than or equal to 0.
 // The ideal amount of locks is dependent on the number of threads. With a factor that depends on the amount of collision you want per lock.
 // Example:
+//
 //	threads := 7
 //	// Collision of 25% per lock
 //	amount := threads * (100 / 25) // => 7 * 4 = 28
-func NewPool(amount int) *Pool {
-	if amount <= 0 {
-		amount = 10
-	}
+func NewPool(opts ...PoolOption) *Pool {
+	opt := DefaultOptions()
+	opt.Modify(opts...)
+	opt.Sanitize()
 
-	locks := make([]*sync.Mutex, 0, amount)
-	for i := 0; i < amount; i++ {
+	locks := make([]*sync.Mutex, 0, opt.Size)
+	for range opt.Size {
 		locks = append(locks, new(sync.Mutex))
 	}
 	return &Pool{locks}
@@ -31,6 +32,7 @@ func NewPool(amount int) *Pool {
 // GetLock returns a lock from the pool based on the key.
 // The key is provided to ensure that the same lock is always returned for the same key. And can be any value.
 // Example:
+//
 //	lock := pool.GetLock(1)
 //	lock = pool.GetLock(987654321)
 func (p *Pool) GetLock(key uint64) *sync.Mutex {
