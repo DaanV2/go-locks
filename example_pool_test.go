@@ -72,16 +72,16 @@ func ExamplePool_concurrent() {
 
 // ExampleNewPool demonstrates creating a pool with custom size
 func ExampleNewPool() {
-	// Create a pool with default size
+	// Create a pool with default size (size depends on GOMAXPROCS)
 	defaultPool := locks.NewPool()
-	fmt.Printf("Default pool size: %d\n", defaultPool.Len())
+	fmt.Printf("Default pool has locks: %t\n", defaultPool.Len() > 0)
 
 	// Create a pool with custom size
 	customPool := locks.NewPool(locks.WithSize(50))
 	fmt.Printf("Custom pool size: %d\n", customPool.Len())
 
 	// Output:
-	// Default pool size: 40
+	// Default pool has locks: true
 	// Custom pool size: 50
 }
 

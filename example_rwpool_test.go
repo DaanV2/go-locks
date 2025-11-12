@@ -81,15 +81,15 @@ func ExampleRWPool_GetLockByString() {
 
 // ExampleNewRWPool demonstrates creating an RWPool with custom size
 func ExampleNewRWPool() {
-	// Create with default size
+	// Create with default size (size depends on GOMAXPROCS)
 	defaultPool := locks.NewRWPool()
-	fmt.Printf("Default RWPool size: %d\n", defaultPool.Len())
+	fmt.Printf("Default RWPool has locks: %t\n", defaultPool.Len() > 0)
 
 	// Create with custom size
 	customPool := locks.NewRWPool(locks.WithSize(100))
 	fmt.Printf("Custom RWPool size: %d\n", customPool.Len())
 
 	// Output:
-	// Default RWPool size: 40
+	// Default RWPool has locks: true
 	// Custom RWPool size: 100
 }
