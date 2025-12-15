@@ -28,27 +28,3 @@ updates:
           all:
               patterns:
                   - "*"
-
-    - package-ecosystem: docker
-      directory: /
-      labels:
-          - dependencies
-          - docker
-      schedule:
-          interval: "weekly"
-      groups:
-          all:
-              patterns:
-                  - "*"
-
-    - package-ecosystem: docker-compose
-      directory: /
-      labels:
-          - dependencies
-          - docker
-      schedule:
-          interval: "weekly"
-      groups:
-          all:
-              patterns:
-                  - "*"
