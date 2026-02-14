@@ -52,7 +52,7 @@ func ExamplePool_concurrent() {
 	var wg sync.WaitGroup
 
 	// Simulate multiple goroutines accessing different resources
-	for i := 0; i < 3; i++ {
+	for i := range 3 {
 		wg.Add(1)
 		go func(id uint64) {
 			defer wg.Done()

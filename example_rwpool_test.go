@@ -37,9 +37,9 @@ func ExampleRWPool_multipleReaders() {
 	var wg sync.WaitGroup
 
 	cacheKey := "user:1234"
-	
+
 	// Multiple readers can access simultaneously
-	for i := 0; i < 3; i++ {
+	for i := range 3 {
 		wg.Add(1)
 		go func(readerID int) {
 			defer wg.Done()
